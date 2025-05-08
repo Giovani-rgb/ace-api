@@ -1,0 +1,52 @@
+# Node modules (pacotes instalados)
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos de ambiente (contêm senhas/tokens)
+.env
+.env.local
+.env.*.local
+
+# Diretórios de build e temporários
+dist/
+build/
+tmp/
+temp/
+
+# Banco de dados local ou arquivos de dump
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+
+# IDEs e editores
+.vscode/
+.idea/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Testes
+coverage/
+.nyc_output/
+
+# Arquivos do PM2
+pids/
+*.pid
+*.seed
+
+# Certificados temporários (caso use HTTPS local)
+*.pem
+*.crt
+*.key
+firebase-key.json
+node_modules/
+.env
+firebase-key.json

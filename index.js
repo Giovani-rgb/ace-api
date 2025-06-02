@@ -2,15 +2,29 @@ require('dotenv').config();
 const express = require('express');
 const cors = require("cors");
 const app = express();
-const memberRoutes = require('./routes/memberRoutes');
-const authRoutes = require('./routes/authRoutes');
 
-app.use(cors());
+const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
+const secaoRoutes = require('./routes/secaoRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
+
+app.use(cors({ origin: 'http://localhost:3000' }));
+
 
 app.use(express.json());
-app.use('/api/members', memberRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/secoes', secaoRoutes);
+app.use('/api', paymentRoutes);
 
 
-const PORT = process.env.PORT || 6000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
+
+
+
+
+
+
+

@@ -4,8 +4,8 @@ const authController = require('../controllers/authController');
 
 router.post('/verify', authController.verifyAuth);
 
-module.exports = router;
 
+module.exports = router;
 
 
 

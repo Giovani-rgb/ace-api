@@ -23,7 +23,7 @@ module.exports = {
 
             const updatedSecao = await secaoService.updateSecao(uid, idSecao, {
                 ativa: false,
-                desligadoEm: new Date().toISOString()
+                deslogadoEm: new Date().toISOString()
             });
 
             if (!updatedSecao) {

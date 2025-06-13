@@ -1,5 +1,5 @@
 {
-  "name": "ace-api",
+  "name": "CDN V.E.R.U.M.",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -11,9 +11,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "chalk": "^4.1.2",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "figlet": "^1.8.1",
     "firebase-admin": "^13.3.0",
     "node-fetch": "^2.7.0",
     "pi-backend": "^0.1.3",

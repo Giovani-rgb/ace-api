@@ -1,5 +1,5 @@
 const UserDTO = require('../models/userDTO');
-const db = require('../services/firebase');
+const db = require('./firebase');
 const logger = require('../utils/logger');
 const collection = db.collection('users');
 

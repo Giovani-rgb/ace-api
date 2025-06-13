@@ -1,7 +1,7 @@
 // services/paymentService.js
 
 const Payment = require("../models/paymentModel");
-const db = require('../services/firebase'); // ajuste o caminho conforme sua estrutura
+const db = require('./firebase'); // ajuste o caminho conforme sua estrutura
 
 const collection = db.collection("payments");
 

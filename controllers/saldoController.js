@@ -5,7 +5,7 @@ const getSaldo = async (req, res) => {
   const { uid } = req.params;
 
   if (!uid) {
-    logger.warn('UID não fornecido na requisição de saldo');
+    logger.warn('[saldo-(Controller)] UID não fornecido na requisição de saldo');
     return res.status(400).json({ error: 'UID é obrigatório' });
   }
 
@@ -15,12 +15,12 @@ const getSaldo = async (req, res) => {
     if (!saldo) {
       // Cria saldo inicial zerado
       saldo = await saldoService.setSaldoByUid(uid, { Pi: 0, CICLOS: 0 });
-      logger.info(`Saldo não encontrado para UID ${uid}, criado com valores zerados.`);
+      logger.info(`[saldo-(Controller)] Saldo não encontrado para UID ${uid}, criado com valores zerados.`);
     }
 
     return res.status(200).json(saldo);
   } catch (error) {
-    logger.error(`Erro ao obter saldo para UID: ${uid} - ${error.message}`);
+    logger.error(`[saldo-(Controller)] Erro ao obter saldo para UID: ${uid} - ${error.message}`);
     return res.status(500).json({ error: 'Erro ao obter saldo' });
   }
 };
@@ -37,7 +37,7 @@ const setSaldo = async (req, res) => {
     const saldo = await saldoService.setSaldoByUid(uid, data);
     return res.status(200).json(saldo);
   } catch (error) {
-    logger.error(`Erro ao definir saldo para UID: ${uid} - ${error.message}`);
+    logger.error(`[saldo-(Controller)] Erro ao definir saldo para UID: ${uid} - ${error.message}`);
     return res.status(500).json({ error: 'Erro ao definir saldo' });
   }
 };
@@ -54,7 +54,7 @@ const incrementSaldo = async (req, res) => {
     const saldoAtualizado = await saldoService.incrementSaldo(uid, { Pi, CICLOS });
     return res.status(200).json(saldoAtualizado);
   } catch (error) {
-    logger.error(`Erro ao incrementar saldo para UID: ${uid} - ${error.message}`);
+    logger.error(`[saldo-(Controller)] Erro ao incrementar saldo para UID: ${uid} - ${error.message}`);
     return res.status(500).json({ error: 'Erro ao incrementar saldo' });
   }
 };

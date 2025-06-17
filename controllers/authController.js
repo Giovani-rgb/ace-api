@@ -9,7 +9,7 @@ module.exports = {
       const { accessToken, user } = req.body;
 
       if (!accessToken || !user) {
-        logger.warn('Requisição sem dados de autenticação.');
+        logger.warn('[Auth-(Controller)] Requisição sem dados de autenticação.');
         return res.status(400).json({ error: 'Dados de autenticação ausentes.' });
       }
 
@@ -25,18 +25,18 @@ module.exports = {
       if (!piApiResponse.ok) {
         const contentType = piApiResponse.headers.get('content-type');
         const body = await piApiResponse.text();
-        logger.warn(`Resposta inválida da Pi API [${piApiResponse.status}] ${contentType}: ${body}`);
+        logger.warn(`[Auth-(Controller)] Resposta inválida da Pi API [${piApiResponse.status}] ${contentType}: ${body}`);
         return res.status(401).json({ error: 'Token inválido ou expirado.' });
       }
 
       const verifiedUser = await piApiResponse.json();
 
       if (verifiedUser.uid !== user.uid) {
-        logger.warn(`UID divergente. Esperado: ${verifiedUser.uid}, Recebido: ${user.uid}`);
+        logger.warn(`[Auth-(Controller)] UID divergente. Esperado: ${verifiedUser.uid}, Recebido: ${user.uid}`);
         return res.status(401).json({ error: 'Identidade do usuário não corresponde ao token.' });
       }
 
-      logger.info(`Token de ${user.uid} validado com sucesso.`);
+      logger.info(`[Auth-(Controller)] Token de ${user.uid} validado com sucesso.`);
 
       // 👤 Recupera ou cria o usuário
       let foundUser = await userService.getUserById(user.uid);
@@ -44,7 +44,7 @@ module.exports = {
       if (!foundUser) {
         // Usuário não existe, criar usuário e nova seção
         foundUser = await userService.createUser(user);
-        logger.info(`Novo usuário registrado: ${user.uid}`);
+        logger.info(`[Auth-(Controller)] Novo usuário registrado: ${user.uid}`);
 
         const secaoData = {
           uidUsuario: user.uid,
@@ -55,7 +55,7 @@ module.exports = {
         };
 
         const novaSecao = await secaoService.createSecao(secaoData);
-        logger.info(`Nova seção criada para novo usuário ${user.uid}`);
+        logger.info(`[Auth-(Controller)] Nova seção criada para novo usuário ${user.uid}`);
 
         return res.status(200).json({
           message: 'Usuário autenticado e criado com sucesso',
@@ -72,7 +72,7 @@ module.exports = {
 
       if (secaoAtiva) {
         // Seção ativa encontrada, retorna ela
-        logger.info(`Seção ativa existente para usuário ${user.uid}`);
+        logger.info(`[Auth-(Controller)] Seção ativa existente para usuário ${user.uid}`);
         return res.status(200).json({
           message: 'Usuário autenticado com seção ativa',
           user: foundUser,
@@ -90,7 +90,7 @@ module.exports = {
       };
 
       const novaSecao = await secaoService.createSecao(secaoData);
-      logger.info(`Nova seção ativa criada para usuário existente ${user.uid}`);
+      logger.info(`[Auth-(Controller)] Nova seção ativa criada para usuário existente ${user.uid}`);
 
       return res.status(200).json({
         message: 'Usuário autenticado com nova seção ativa criada',
@@ -99,7 +99,7 @@ module.exports = {
       });
 
     } catch (error) {
-      logger.error(`Erro na verificação do usuário: ${error.message}`);
+      logger.error(`[Auth-(Controller)] Erro na verificação do usuário: ${error.message}`);
       res.status(500).json({ error: 'Erro interno no servidor' });
     }
   }

@@ -8,10 +8,10 @@ const createBanner = async (data) => {
   try {
     const banner = new BannerDTO(data);
     await collection.doc(banner.id).set(banner.toJSON());
-    logger.info(`Banner criado com ID: ${banner.id}`);
+    logger.info(`[Banner-(Servico)] criado com ID: ${banner.id}`);
     return banner;
   } catch (error) {
-    logger.error(`Erro ao criar banner: ${error.message}`);
+    logger.error(`Erro ao criar [Banner-(Servico)]: ${error.message}`);
     throw error;
   }
 };
@@ -21,13 +21,13 @@ const getBannerById = async (id) => {
   try {
     const doc = await collection.doc(id).get();
     if (!doc.exists) {
-      logger.warn(`Banner com ID ${id} não encontrado`);
+      logger.warn(`[Banner-(Servico)] com ID ${id} não encontrado`);
       return null;
     }
-    logger.info(`Banner com ID ${id} encontrado`);
+    logger.info(`[Banner-(Servico)] com ID ${id} encontrado`);
     return doc.data();
   } catch (error) {
-    logger.error(`Erro ao buscar banner: ${error.message}`);
+    logger.error(`Erro ao buscar [Banner-(Servico)]: ${error.message}`);
     throw error;
   }
 };
@@ -42,10 +42,10 @@ const getAllBanners = async () => {
       banners.push(doc.data());
     });
 
-    logger.info(`Listagem de banners realizada (${banners.length})`);
+    logger.info(`Listagem de [Banner-(Servico)] realizada (${banners.length})`);
     return banners;
   } catch (error) {
-    logger.error(`Erro ao listar banners: ${error.message}`);
+    logger.error(`Erro ao listar [Banner-(Servico)]: ${error.message}`);
     throw error;
   }
 };
@@ -57,16 +57,16 @@ const updateBanner = async (id, updates) => {
     const doc = await docRef.get();
 
     if (!doc.exists) {
-      logger.warn(`Banner com ID ${id} não existe para atualização`);
+      logger.warn(`[Banner-(Servico)] com ID ${id} não existe para atualização`);
       return null;
     }
 
     await docRef.update(updates);
     const updatedDoc = await docRef.get();
-    logger.info(`Banner com ID ${id} atualizado`);
+    logger.info(`[Banner-(Servico)] com ID ${id} atualizado`);
     return updatedDoc.data();
   } catch (error) {
-    logger.error(`Erro ao atualizar banner: ${error.message}`);
+    logger.error(`Erro ao atualizar [Banner-(Servico)]: ${error.message}`);
     throw error;
   }
 };
@@ -78,15 +78,15 @@ const deleteBanner = async (id) => {
     const doc = await docRef.get();
 
     if (!doc.exists) {
-      logger.warn(`Banner com ID ${id} não existe para exclusão`);
+      logger.warn(`[Banner-(Servico)] com ID ${id} não existe para exclusão`);
       return false;
     }
 
     await docRef.delete();
-    logger.info(`Banner com ID ${id} excluído`);
+    logger.info(`[Banner-(Servico)] com ID ${id} excluído`);
     return true;
   } catch (error) {
-    logger.error(`Erro ao excluir banner: ${error.message}`);
+    logger.error(`Erro ao excluir [Banner-(Servico)]: ${error.message}`);
     throw error;
   }
 };

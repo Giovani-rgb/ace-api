@@ -11,14 +11,14 @@ const getSaldoByUid = async (uid) => {
     const doc = await docRef.get();
 
     if (!doc.exists) {
-      logger.warn(`[Saldo] não encontrado para UID: ${uid}`);
+      logger.warn(`[Saldo-(Servico)] não encontrado para UID: ${uid}`);
       return new SaldoDTO(); // Retorna saldo zerado
     }
 
-    logger.info(`[Saldo] recuperado para UID: ${uid}`);
+    logger.info(`[Saldo-(Servico)] recuperado para UID: ${uid}`);
     return new SaldoDTO(doc.data());
   } catch (error) {
-    logger.error(`Erro ao buscar saldo para UID: ${uid} - ${error.message}`);
+    logger.error(`Erro ao buscar Saldo-(Servico) para UID: ${uid} - ${error.message}`);
     throw error;
   }
 };
@@ -29,10 +29,10 @@ const setSaldoByUid = async (uid, data) => {
     const saldo = new SaldoDTO(data);
     await collection.doc(uid).set(saldo.toJSON(), { merge: true });
 
-    logger.info(`[Saldo] atualizado para UID: ${uid}`);
+    logger.info(`[Saldo-(Servico)] atualizado para UID: ${uid}`);
     return saldo.toJSON();
   } catch (error) {
-    logger.error(`Erro ao atualizar saldo para UID: ${uid} - ${error.message}`);
+    logger.error(`Erro ao atualizar Saldo-(Servico) para UID: ${uid} - ${error.message}`);
     throw error;
   }
 };
@@ -49,11 +49,11 @@ const incrementSaldo = async (uid, { Pi = 0, CICLOS = 0 }) => {
       { merge: true }
     );
 
-    logger.info(`[Saldo] incrementado para UID: ${uid} (+${Pi} Pi, +${CICLOS} CICLOS)`);
+    logger.info(`[Saldo-(Servico)] incrementado para UID: ${uid} (+${Pi} Pi, +${CICLOS} CICLOS)`);
     const updatedDoc = await docRef.get();
     return updatedDoc.data();
   } catch (error) {
-    logger.error(`Erro ao incrementar saldo para UID: ${uid} - ${error.message}`);
+    logger.error(`Erro ao incrementar Saldo-(Servico) para UID: ${uid} - ${error.message}`);
     throw error;
   }
 };

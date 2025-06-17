@@ -14,10 +14,10 @@ const createSecao = async (data) => {
 
     await newDocRef.set(secao.toJSON());
 
-    logger.info(`Seção criada para UID: ${secao.uidUsuario}, ID Secao: ${newDocRef.id}`);
+    logger.info(`[Seção-(Servico)] criada para UID: ${secao.uidUsuario}, ID Secao: ${newDocRef.id}`);
     return { idSecao: newDocRef.id, ...secao.toJSON() };
   } catch (error) {
-    logger.error(`Erro ao criar seção: ${error.message}`);
+    logger.error(`Erro ao criar [Seção-(Servico)]: ${error.message}`);
     throw error;
   }
 };
@@ -28,14 +28,14 @@ const getSecaoById = async (uid, idSecao) => {
     const doc = await docRef.get();
 
     if (!doc.exists) {
-      logger.warn(`Seção não encontrada para UID: ${uid}, ID: ${idSecao}`);
+      logger.warn(`[Seção-(Servico)] não encontrada para UID: ${uid}, ID: ${idSecao}`);
       return null;
     }
 
-    logger.info(`Seção recuperada para UID: ${uid}, ID: ${idSecao}`);
+    logger.info(`[Seção-(Servico)] recuperada para UID: ${uid}, ID: ${idSecao}`);
     return doc.data();
   } catch (error) {
-    logger.error(`Erro ao buscar seção: ${error.message}`);
+    logger.error(`Erro ao buscar [Seção-(Servico)]: ${error.message}`);
     throw error;
   }
 };
@@ -46,17 +46,17 @@ const updateSecao = async (uid, idSecao, updates) => {
     const doc = await docRef.get();
 
     if (!doc.exists) {
-      logger.warn(`Não foi possível atualizar, seção não encontrada para UID: ${uid}, ID: ${idSecao}`);
+      logger.warn(`Não foi possível atualizar, [Seção-(Servico)] não encontrada para UID: ${uid}, ID: ${idSecao}`);
       return null;
     }
 
     await docRef.update(updates);
     const updated = await docRef.get();
 
-    logger.info(`Seção atualizada para UID: ${uid}, ID: ${idSecao}`);
+    logger.info(`[Seção-(Servico)] atualizada para UID: ${uid}, ID: ${idSecao}`);
     return updated.data();
   } catch (error) {
-    logger.error(`Erro ao atualizar seção: ${error.message}`);
+    logger.error(`Erro ao atualizar [Seção-(Servico)]: ${error.message}`);
     throw error;
   }
 };
@@ -67,16 +67,16 @@ const deleteSecao = async (uid, idSecao) => {
     const doc = await docRef.get();
 
     if (!doc.exists) {
-      logger.warn(`Tentativa de deletar seção inexistente para UID: ${uid}, ID: ${idSecao}`);
+      logger.warn(`Tentativa de deletar [Seção-(Servico)] inexistente para UID: ${uid}, ID: ${idSecao}`);
       return false;
     }
 
     await docRef.delete();
 
-    logger.info(`Seção deletada para UID: ${uid}, ID: ${idSecao}`);
+    logger.info(`[Seção-(Servico)] deletada para UID: ${uid}, ID: ${idSecao}`);
     return true;
   } catch (error) {
-    logger.error(`Erro ao deletar seção: ${error.message}`);
+    logger.error(`Erro ao deletar [Seção-(Servico)]: ${error.message}`);
     throw error;
   }
 };
@@ -86,16 +86,16 @@ const listSecoesByUid = async (uid) => {
     const snapshot = await collection.doc(uid).collection('secoes').get();
    
     if (snapshot.empty) {
-      logger.warn(`Nenhuma seção encontrada para UID: ${uid}`);
+      logger.warn(`Nenhuma [Seção-(Servico)] encontrada para UID: ${uid}`);
       return [];
     }
 
     const secoes = snapshot.docs.map(doc => ({ idSecao: doc.id, ...doc.data() }));
 
-    logger.info(`Seções listadas para UID: ${uid}`);
+    logger.info(`[Seção-(Servico)] listadas para UID: ${uid}`);
     return secoes;
   } catch (error) {
-    logger.error(`Erro ao listar seções: ${error.message}`);
+    logger.error(`Erro ao listar [Seção-(Servico)]: ${error.message}`);
     throw error;
   }
 };

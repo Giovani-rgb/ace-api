@@ -12,6 +12,7 @@ const secaoRoutes = require('./routes/secaoRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const saldoRoutes = require('./routes/saldoRoutes');
 const bannerRoutes = require('./routes/bannerRoutes');
+const cotacaoRoutes = require("./routes/cotacao");
 
 
 
@@ -25,11 +26,12 @@ app.use('/api/secoes', secaoRoutes);
 app.use('/api', paymentRoutes);
 app.use('/api/saldo', saldoRoutes);
 app.use('/api/banners', bannerRoutes);
+app.use("/api/cotacao", cotacaoRoutes);
 
 const PORT = process.env.PORT || 3001;
 
 figlet.text('CDN-V.E.R.U.M.', {
-  font: 'Block', // ou 'Standard', 'Big', 'Block', 'Slant' etc.
+  font: 'Standard', // ou 'Standard', 'Big', 'Block', 'Slant' etc.
   horizontalLayout: 'default',
   verticalLayout: 'default',
 }, function(err, data) {
@@ -43,6 +45,12 @@ figlet.text('CDN-V.E.R.U.M.', {
 });
 
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
+
+
+
+
+
 
 
 

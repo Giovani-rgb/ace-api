@@ -7,9 +7,9 @@
     "start": "node index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "@Giovani2021",
   "license": "ISC",
-  "description": "",
+  "description": "Uma Api Restful Express para um site de game economico e criacao colaborativa",
   "dependencies": {
     "chalk": "^4.1.2",
     "cors": "^2.8.5",

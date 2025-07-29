@@ -1,10 +1,19 @@
 require('dotenv').config();
 const express = require('express');
+const path = require("path");
 const cors = require("cors");
 const app = express();
 const figlet = require('figlet');
 const chalk = require('chalk');
 const pkg = require('./package.json');
+
+
+
+
+
+
+
+
 
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -17,6 +26,8 @@ const cotacaoRoutes = require("./routes/cotacao");
 
 
 app.use(cors({ origin: 'http://localhost:3000' }));
+ //Servir a pasta "public"
+app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
 
 app.use(express.json());

@@ -1,14 +1,26 @@
 // services/paymentService.js
 
 const Payment = require("../models/paymentModel");
-const db = require('./firebase'); // ajuste o caminho conforme sua estrutura
+const db = require("./firebase"); // ajuste o caminho conforme sua estrutura
 
 const collection = db.collection("payments");
 
 class PaymentService {
-    static async create(paymentId, uid) {
-        const payment = new Payment(paymentId, uid);
-        await collection.doc(paymentId).set({ ...payment });
+    static async create(paymentId, uid, plano) {
+        const payment = {
+            paymentId,
+            uid,
+            status: "pending",
+            createdAt: new Date(),
+            plano: {
+                title: plano?.title || "Indefinido",
+                pricePi: plano?.pricePi || 0,
+                multiplier: plano?.multiplier || 1,
+                apy: plano?.apy || 0
+            }
+        };
+
+        await collection.doc(paymentId).set(payment);
         return payment;
     }
 
@@ -19,7 +31,7 @@ class PaymentService {
         }
         return doc.data();
     }
-    
+
     static async cancel(paymentId) {
         await collection
             .doc(paymentId)
